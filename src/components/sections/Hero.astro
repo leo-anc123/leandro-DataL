@@ -1,6 +1,7 @@
 ---
 import esData from '../../data/es.json';
 import { siteConfig } from '../../config/site.config';
+import NodoIaSimulation from '../dataviz/NodoIaSimulation';
 
 const { hero } = esData;
 ---
@@ -82,63 +83,10 @@ const { hero } = esData;
 
       </div>
 
-      <!-- Columna Derecha: Contenedor Estilizado con Slot para Turno 3 -->
+      <!-- Columna Derecha: Simulación Nodo IA (Turno 3) -->
       <div class="lg:col-span-5 w-full">
-        <div class="relative rounded-xl border border-border-subtle bg-surface/90 shadow-2xl p-5 md:p-6 min-h-[380px] md:min-h-[420px] flex flex-col justify-between overflow-hidden">
-          {/* SLOT: NodoIaSimulation (Turno 3) */}
-          
-          <!-- Terminal/Simulation Header -->
-          <div class="flex items-center justify-between border-b border-border-subtle pb-3">
-            <div class="flex items-center gap-2">
-              <span class="w-2.5 h-2.5 rounded-full bg-red-500/80"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-yellow-500/80"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-accent-lime/80"></span>
-              <span class="ml-2 font-mono text-xs text-text-secondary">{hero.cardPreview.title}</span>
-            </div>
-            <span class="inline-flex items-center gap-1.5 font-mono text-[11px] text-accent-lime bg-accent-lime/10 px-2 py-0.5 rounded border border-accent-lime/20">
-              <span class="w-1.5 h-1.5 rounded-full bg-accent-lime animate-pulse"></span>
-              {hero.cardPreview.status}
-            </span>
-          </div>
-
-          <!-- Simulation Graphic Mockup Area -->
-          <div class="py-8 flex flex-col items-center justify-center space-y-6 flex-grow">
-            <!-- Simulated chart curves & distributions -->
-            <div class="w-full space-y-3">
-              <div class="flex items-center justify-between text-[11px] font-mono text-text-muted">
-                <span>P10 (Bajo)</span>
-                <span>P50 (Base)</span>
-                <span>P90 (Alto)</span>
-              </div>
-              <div class="grid grid-cols-3 gap-2 h-20 items-end">
-                <div class="bg-surface-subtle border border-border-subtle rounded-t h-[45%] flex items-end justify-center pb-1">
-                  <span class="font-mono text-[10px] text-text-muted">45%</span>
-                </div>
-                <div class="bg-accent-lime/20 border border-accent-lime/40 rounded-t h-[88%] flex items-end justify-center pb-1 relative">
-                  <span class="font-mono text-[10px] text-accent-lime font-bold">88%</span>
-                </div>
-                <div class="bg-surface-subtle border border-border-subtle rounded-t h-[65%] flex items-end justify-center pb-1">
-                  <span class="font-mono text-[10px] text-text-muted">65%</span>
-                </div>
-              </div>
-            </div>
-
-            <!-- Scenarios chips -->
-            <div class="flex items-center justify-center gap-2 flex-wrap">
-              {hero.cardPreview.scenarios.map((sc) => (
-                <span class="font-mono text-[11px] px-2.5 py-1 rounded bg-surface-subtle text-text-secondary border border-border-subtle">
-                  {sc}
-                </span>
-              ))}
-            </div>
-          </div>
-
-          <!-- Card Footer -->
-          <div class="pt-3 border-t border-border-subtle flex items-center justify-between text-[11px] font-mono text-text-muted">
-            <span>{hero.cardPreview.footerTag}</span>
-            <span class="italic text-[10px]">{hero.cardPreview.caption}</span>
-          </div>
-        </div>
+        {/* SLOT: NodoIaSimulation (Turno 3) */}
+        <NodoIaSimulation client:idle />
       </div>
 
     </div>

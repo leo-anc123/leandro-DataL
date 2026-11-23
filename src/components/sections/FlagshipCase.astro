@@ -1,6 +1,7 @@
 ---
 import esData from '../../data/es.json';
 import { siteConfig } from '../../config/site.config';
+import MulticriteriaMatrix from '../dataviz/MulticriteriaMatrix';
 
 const { flagshipCase } = esData;
 ---
@@ -76,66 +77,10 @@ const { flagshipCase } = esData;
 
       </div>
 
-      <!-- Columna Derecha: Contenedor Estilizado con Slot para Turno 3 -->
+      <!-- Columna Derecha: Matriz Multicriterio (Turno 3) -->
       <div class="lg:col-span-5 w-full">
-        <div class="relative rounded-xl border border-border-subtle bg-surface/90 shadow-2xl p-5 md:p-6 min-h-[380px] md:min-h-[440px] flex flex-col justify-between overflow-hidden">
-          {/* SLOT: MulticriteriaMatrix (Turno 3) */}
-
-          <!-- Terminal / Matrix Header -->
-          <div class="flex items-center justify-between border-b border-border-subtle pb-3">
-            <div class="flex items-center gap-2">
-              <span class="w-2.5 h-2.5 rounded-full bg-red-500/80"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-yellow-500/80"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-accent-lime/80"></span>
-              <span class="ml-2 font-mono text-xs text-text-secondary">{flagshipCase.cardPreview.title}</span>
-            </div>
-            <span class="font-mono text-[10px] text-text-muted uppercase tracking-wider">
-              {flagshipCase.cardPreview.matrixLabel}
-            </span>
-          </div>
-
-          <!-- Multicriteria Weight Mockup Preview -->
-          <div class="py-5 space-y-3 flex-grow">
-            <div class="flex items-center justify-between text-[11px] font-mono text-text-muted pb-1 border-b border-border-subtle/50">
-              <span>{flagshipCase.cardPreview.weightsLabel}</span>
-              <span>PESO %</span>
-            </div>
-
-            {flagshipCase.cardPreview.criteria.map((criterion, idx) => {
-              const weights = [35, 25, 15, 15, 10];
-              const weight = weights[idx] || 15;
-              return (
-                <div class="space-y-1">
-                  <div class="flex justify-between text-xs font-mono text-text-secondary">
-                    <span>{criterion}</span>
-                    <span class={idx === 0 ? "text-accent-lime font-bold" : "text-text-muted"}>{weight}%</span>
-                  </div>
-                  <div class="h-1.5 w-full bg-surface-subtle rounded-full overflow-hidden">
-                    <div
-                      class={`h-full rounded-full ${idx === 0 ? "bg-accent-lime" : "bg-text-secondary/60"}`}
-                      style={`width: ${weight}%`}
-                    ></div>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-
-          <!-- Tags & Footer -->
-          <div class="pt-3 border-t border-border-subtle flex flex-col gap-2">
-            <div class="flex flex-wrap gap-1.5">
-              {flagshipCase.cardPreview.tags.map((tag) => (
-                <span class="font-mono text-[10px] px-2 py-0.5 rounded bg-surface-subtle text-text-muted border border-border-subtle">
-                  {tag}
-                </span>
-              ))}
-            </div>
-            <div class="flex justify-end">
-              <span class="italic text-[10px] font-mono text-text-muted">{flagshipCase.cardPreview.caption}</span>
-            </div>
-          </div>
-
-        </div>
+        {/* SLOT: MulticriteriaMatrix (Turno 3) */}
+        <MulticriteriaMatrix client:visible />
       </div>
 
     </div>

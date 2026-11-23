@@ -1,43 +1,61 @@
 {
-  "simulation": {
-    "scenarios": {
-      "bajo": {
-        "p10": 12.4,
-        "p50": 15.2,
-        "p90": 18.7
-      },
-      "base": {
-        "p10": 18.1,
-        "p50": 22.5,
-        "p90": 27.3
-      },
-      "alto": {
-        "p10": 25.0,
-        "p50": 31.8,
-        "p90": 39.4
-      }
-    }
+  "graph": {
+    "nodes": [
+      { "id": "n1", "x": 30, "y": 70, "label": "Start", "tier": "edge" },
+      { "id": "n2", "x": 80, "y": 35, "label": "N-02", "tier": "transit" },
+      { "id": "n3", "x": 80, "y": 105, "label": "N-03", "tier": "transit" },
+      { "id": "n4", "x": 140, "y": 30, "label": "N-04", "tier": "compute" },
+      { "id": "n5", "x": 145, "y": 75, "label": "N-05", "tier": "compute" },
+      { "id": "n6", "x": 140, "y": 115, "label": "N-06", "tier": "compute" },
+      { "id": "n7", "x": 205, "y": 45, "label": "N-07", "tier": "gateway" },
+      { "id": "n8", "x": 205, "y": 95, "label": "N-08", "tier": "gateway" },
+      { "id": "target", "x": 270, "y": 70, "label": "Target", "tier": "core", "isTarget": true }
+    ],
+    "edges": [
+      { "from": "n1", "to": "n2", "active": false },
+      { "from": "n1", "to": "n3", "active": true },
+      { "from": "n2", "to": "n4", "active": false },
+      { "from": "n2", "to": "n5", "active": false },
+      { "from": "n3", "to": "n5", "active": true },
+      { "from": "n3", "to": "n6", "active": false },
+      { "from": "n4", "to": "n7", "active": false },
+      { "from": "n5", "to": "n7", "active": false },
+      { "from": "n5", "to": "n8", "active": true },
+      { "from": "n6", "to": "n8", "active": false },
+      { "from": "n7", "to": "target", "active": false },
+      { "from": "n8", "to": "target", "active": true }
+    ],
+    "activePath": ["n1", "n3", "n5", "n8", "target"]
   },
-  "mcdaWeights": [
-    {
-      "criterion": "Energía",
-      "weight": 0.35
-    },
-    {
-      "criterion": "Conectividad",
-      "weight": 0.25
-    },
-    {
-      "criterion": "Latencia",
-      "weight": 0.2
-    },
-    {
-      "criterion": "Costo de Suelo",
-      "weight": 0.15
-    },
-    {
-      "criterion": "Marco Regulatorio",
-      "weight": 0.05
-    }
-  ]
+  "distribution": {
+    "bars": [
+      { "id": "b1", "label": "p05", "value": 18, "scenario": "bajo", "color": "dim" },
+      { "id": "b2", "label": "p15", "value": 32, "scenario": "bajo", "color": "dim" },
+      { "id": "b3", "label": "p25", "value": 48, "scenario": "bajo", "color": "subtle" },
+      { "id": "b4", "label": "p35", "value": 70, "scenario": "base", "color": "subtle" },
+      { "id": "b5", "label": "p45", "value": 90, "scenario": "base", "color": "accent" },
+      { "id": "b6", "label": "p50", "value": 100, "scenario": "base", "color": "accent", "isPeak": true },
+      { "id": "b7", "label": "p55", "value": 88, "scenario": "base", "color": "accent" },
+      { "id": "b8", "label": "p65", "value": 66, "scenario": "base", "color": "subtle" },
+      { "id": "b9", "label": "p75", "value": 44, "scenario": "alto", "color": "subtle" },
+      { "id": "b10", "label": "p85", "value": 26, "scenario": "alto", "color": "dim" },
+      { "id": "b11", "label": "p95", "value": 14, "scenario": "alto", "color": "dim" }
+    ],
+    "scenarios": [
+      { "key": "bajo", "label": "escenario bajo", "range": "P10 - P25", "value": "15.2 ms", "active": false },
+      { "key": "base", "label": "base", "range": "P50 (Óptimo)", "value": "22.5 ms", "active": true },
+      { "key": "alto", "label": "escenario alto", "range": "P75 - P90", "value": "31.8 ms", "active": false }
+    ]
+  },
+  "mcda": {
+    "version": "v2.1.0",
+    "total": 100,
+    "criteria": [
+      { "id": "c1", "name": "Energía", "weight": 35, "description": "Disponibilidad de potencia en MW y confiabilidad de red", "color": "#A3E635" },
+      { "id": "c2", "name": "Conectividad", "weight": 25, "description": "Rutas de fibra oscura redundantes y latencia a IXP", "color": "#A3E635" },
+      { "id": "c3", "name": "Marco regulatorio", "weight": 15, "description": "Incentivos fiscales, estabilidad jurídica y permisos", "color": "#A3E635" },
+      { "id": "c4", "name": "Refrigeración / clima", "weight": 15, "description": "Eficiencia PUE proyectada y temperaturas medias", "color": "#A3E635" },
+      { "id": "c5", "name": "Costo", "weight": 10, "description": "CAPEX/OPEX de suelo, obras civiles e interconexión", "color": "#A3E635" }
+    ]
+  }
 }
