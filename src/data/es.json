@@ -1,0 +1,204 @@
+{
+  "brand": "Leandro / DataL",
+  "nav": {
+    "projects": "Proyectos",
+    "services": "Servicios",
+    "lab": "Lab",
+    "profile": "Perfil",
+    "contact": "Contactar",
+    "languages": {
+      "es": "ES",
+      "en": "EN"
+    }
+  },
+  "hero": {
+    "badge": "CIENTÍFICO DE DATOS · SISTEMAS DE DECISIÓN",
+    "status": "Disponible para proyectos",
+    "headline": "Datos complejos convertidos en herramientas interactivas de decisión.",
+    "subheadline": "Observatorios de datos, automatización de pipelines y consultoría analítica para decidir con evidencia.",
+    "ctas": {
+      "primary": "Explorar nodo / IA →",
+      "secondary": "Iniciar una consulta",
+      "downloadCv": "Descargar CV"
+    },
+    "tags": ["Python", "MCDA", "Monte Carlo", "CI/CD", "React"],
+    "cardPreview": {
+      "title": "nodo-ia / simulación",
+      "status": "simulación activa",
+      "scenarios": ["escenario bajo", "base", "escenario alto"],
+      "caption": "Vista ilustrativa",
+      "footerTag": "MCDA → Monte Carlo"
+    }
+  },
+  "flagshipCase": {
+    "badge": "CASO INSIGNIA · v2.1.0",
+    "title": "nodo / IA: ¿conviene instalar Data Centers de IA en Argentina?",
+    "description": [
+      "Un sistema de decisión que evalúa la viabilidad real de instalar Data Centers de IA en Argentina.",
+      "Combina análisis multicriterio (MCDA) con simulación Monte Carlo para comparar escenarios bajo incertidumbre.",
+      "Se mantiene actualizado solo: un pipeline automatizado alimenta un frontend productivo."
+    ],
+    "metrics": [
+      {
+        "value": "100%",
+        "label": "Pipeline automatizado con GitHub Actions"
+      },
+      {
+        "value": "MCDA + MC",
+        "label": "Modelado multicriterio y simulación estocástica"
+      },
+      {
+        "value": "Vercel",
+        "label": "Frontend productivo, en línea"
+      }
+    ],
+    "ctas": {
+      "studyCase": "Leer caso de estudio →",
+      "liveDemo": "Ver demo en vivo ↗",
+      "github": "GitHub ↗"
+    },
+    "cardPreview": {
+      "title": "nodo-ia · v2.1.0",
+      "matrixLabel": "MATRIZ MULTICRITERIO",
+      "weightsLabel": "PESO DE CRITERIOS",
+      "criteria": [
+        "Energía",
+        "Conectividad",
+        "Marco regulatorio",
+        "Refrigeración / clima",
+        "Costo"
+      ],
+      "tags": ["Python", "MCDA", "Monte Carlo", "React", "CI/CD"],
+      "caption": "Vista ilustrativa"
+    }
+  },
+  "services": {
+    "badge": "SERVICIOS",
+    "title": "Tres formas concretas de trabajar juntos.",
+    "items": [
+      {
+        "id": "01",
+        "title": "Dashboards y observatorios interactivos",
+        "description": "Transformo datos complejos en interfaces web de exploración y toma de decisiones, no solo gráficos estáticos.",
+        "deliverableLabel": "ENTREGABLE TÍPICO",
+        "deliverable": "Aplicación web desplegada, con documentación de fuentes y métricas."
+      },
+      {
+        "id": "02",
+        "title": "Automatización de pipelines de datos",
+        "description": "Ingesta, limpieza, validación y actualización periódica automatizada (Python + CI/CD) para eliminar trabajo manual propenso a errores.",
+        "deliverableLabel": "ENTREGABLE TÍPICO",
+        "deliverable": "Repositorio con pipeline programado, validaciones y guía de mantenimiento."
+      },
+      {
+        "id": "03",
+        "title": "Consultoría analítica y evaluación de conveniencia",
+        "description": "Modelado cuantitativo, análisis de escenarios y simulaciones para validar si conviene contratar, invertir o lanzar un producto o solución.",
+        "deliverableLabel": "ENTREGABLE TÍPICO",
+        "deliverable": "Informe con escenarios, supuestos explícitos y recomendación de decisión."
+      }
+    ]
+  },
+  "lab": {
+    "badge": "LAB · DATAL",
+    "title": "Prototipos, simuladores de decisión y experimentos técnicos en curso.",
+    "cta": "Ir al laboratorio completo →",
+    "tableHeaders": {
+      "id": "ID",
+      "experiment": "EXPERIMENTO",
+      "focus": "ENFOQUE",
+      "status": "ESTADO"
+    },
+    "items": [
+      {
+        "id": "DL-001",
+        "title": "nodo / IA",
+        "focus": "Viabilidad de Data Centers de IA · MCDA + Monte Carlo",
+        "status": "En producción"
+      },
+      {
+        "id": "DL-002",
+        "title": "Evaluador de conveniencia de stack y herramientas",
+        "focus": "Simulador de decisión · puntaje multicriterio",
+        "status": "En desarrollo"
+      },
+      {
+        "id": "DL-003",
+        "title": "Próximo experimento",
+        "focus": "Por definir",
+        "status": "Próximamente"
+      }
+    ],
+    "note": "El archivo crece con cada experimento nuevo, sin rediseñar el sitio."
+  },
+  "process": {
+    "badge": "CÓMO TRABAJO",
+    "title": "De la pregunta al producto desplegado.",
+    "steps": [
+      {
+        "step": "01",
+        "title": "Problema y decisión",
+        "description": "Defino qué decisión hay que tomar y qué evidencia la cambiaría."
+      },
+      {
+        "step": "02",
+        "title": "Datos y pipeline",
+        "description": "Ingesta, limpieza y validación automatizadas desde el primer día."
+      },
+      {
+        "step": "03",
+        "title": "Modelado y validación",
+        "description": "Modelo cuantitativo, escenarios y pruebas de sensibilidad."
+      },
+      {
+        "step": "04",
+        "title": "Producto desplegado",
+        "description": "Interfaz web en producción, versionada y fácil de mantener."
+      }
+    ]
+  },
+  "profile": {
+    "badge": "PERFIL TÉCNICO",
+    "title": "Enfoque end-to-end, de los datos a la interfaz.",
+    "bio": "Trabajo el ciclo completo: entender la decisión, construir el pipeline, modelar y publicar un producto que otras personas puedan usar. Formación: Tecnicatura en Ciencia de Datos (UGR).",
+    "education": "Tecnicatura en Ciencia de Datos (UGR)",
+    "stack": [
+      {
+        "category": "DATOS Y MODELADO",
+        "skills": "Python · Análisis multicriterio (MCDA) · Simulación Monte Carlo"
+      },
+      {
+        "category": "INGENIERÍA Y AUTOMATIZACIÓN",
+        "skills": "Pipelines en Python · GitHub Actions · CI/CD"
+      },
+      {
+        "category": "PRODUCTO WEB",
+        "skills": "React · Vercel · Datos en JSON / MDX"
+      }
+    ]
+  },
+  "contact": {
+    "title": "¿Tenés un problema de datos o una decisión compleja que modelar?",
+    "projects": {
+      "badge": "PARA PROYECTOS",
+      "description": "Contame en un par de líneas qué necesitás decidir y con qué datos contás. Respondo con un primer enfoque.",
+      "ctaWrite": "Escribime →",
+      "ctaCopy": "Copiar email",
+      "email": "contacto@leandrodatal.com"
+    },
+    "recruitment": {
+      "badge": "PARA RR.HH.",
+      "cvEs": "CV en español ↓",
+      "cvEn": "CV in English ↓",
+      "links": {
+        "github": "GitHub ↗",
+        "twitter": "X ↗",
+        "linkedin": "LinkedIn · pronto"
+      }
+    }
+  },
+  "footer": {
+    "tagline": "Leandro / DataL · v1.0 · Argentina · Remoto",
+    "copyright": "Todos los derechos reservados."
+  }
+}

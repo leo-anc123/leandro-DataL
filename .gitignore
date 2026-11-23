@@ -1,0 +1,15 @@
+# Dependencias (causa principal del error)
+node_modules/
+
+# Builds y caché de Astro
+dist/
+.astro/
+
+# Variables de entorno y logs
+.env
+.env.*
+npm-debug.log*
+
+# Sistema operativo y editor
+.DS_Store
+Thumbs.db

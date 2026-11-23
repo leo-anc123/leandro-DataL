@@ -1,0 +1,25 @@
+{
+  "color": {
+    "background": "#0B0F17",
+    "surface": "#111827",
+    "surface-subtle": "#1F2937",
+    "border": "#374151",
+    "text": {
+      "primary": "#F9FAFB",
+      "secondary": "#9CA3AF",
+      "muted": "#6B7280"
+    },
+    "accent": {
+      "lime": "#A3E635",
+      "lime-hover": "#BEF264",
+      "lime-dim": "#4D7C0F"
+    }
+  },
+  "typography": {
+    "fontSans": "Inter, system-ui, sans-serif",
+    "fontMono": "JetBrains Mono, monospace"
+  },
+  "spacing": {
+    "container": "1200px"
+  }
+}

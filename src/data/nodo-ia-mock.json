@@ -1,0 +1,43 @@
+{
+  "simulation": {
+    "scenarios": {
+      "bajo": {
+        "p10": 12.4,
+        "p50": 15.2,
+        "p90": 18.7
+      },
+      "base": {
+        "p10": 18.1,
+        "p50": 22.5,
+        "p90": 27.3
+      },
+      "alto": {
+        "p10": 25.0,
+        "p50": 31.8,
+        "p90": 39.4
+      }
+    }
+  },
+  "mcdaWeights": [
+    {
+      "criterion": "Energía",
+      "weight": 0.35
+    },
+    {
+      "criterion": "Conectividad",
+      "weight": 0.25
+    },
+    {
+      "criterion": "Latencia",
+      "weight": 0.2
+    },
+    {
+      "criterion": "Costo de Suelo",
+      "weight": 0.15
+    },
+    {
+      "criterion": "Marco Regulatorio",
+      "weight": 0.05
+    }
+  ]
+}

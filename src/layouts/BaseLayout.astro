@@ -1,0 +1,42 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const { title = "Leandro DataL", description = "Portfolio de Ciencia de Datos" } = Astro.props;
+---
+
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+  </head>
+  <body class="min-h-screen bg-[#0B0F17] text-gray-100 flex flex-col">
+    <header class="border-b border-gray-800 p-4">
+      <nav class="max-w-6xl mx-auto flex justify-between items-center">
+        <a href="/" class="text-lime-400 font-bold text-lg tracking-wider">LEANDRO DATAL</a>
+        <div class="space-x-6 text-sm text-gray-300">
+          <a href="/#proyectos" class="hover:text-lime-400">Proyectos</a>
+          <a href="/lab" class="hover:text-lime-400">Lab DataL</a>
+          <a href="/#servicios" class="hover:text-lime-400">Servicios</a>
+          <a href="/#contacto" class="hover:text-lime-400">Contacto</a>
+        </div>
+      </nav>
+    </header>
+
+    <main class="flex-grow">
+      <slot />
+    </main>
+
+    <footer class="border-t border-gray-800 p-6 text-center text-sm text-gray-500">
+      <p>&copy; {new Date().getFullYear()} Leandro DataL. Todos los derechos reservados.</p>
+    </footer>
+  </body>
+</html>
