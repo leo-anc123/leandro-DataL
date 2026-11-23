@@ -1,19 +1,53 @@
 ---
+import esData from '../../data/es.json';
+
+const { services } = esData;
 ---
-<section id="servicios" class="py-16 max-w-5xl mx-auto px-4 border-t border-gray-800">
-  <h2 class="text-2xl font-bold text-white mb-8">Servicios Especializados</h2>
-  <div class="grid md:grid-cols-3 gap-6">
-    <div class="p-6 rounded border border-gray-800 bg-gray-900/50">
-      <h3 class="text-lime-400 font-bold mb-2">01. Modelado & Simulación</h3>
-      <p class="text-sm text-gray-400">Simulaciones Monte Carlo y optimización para decisiones estratégicas.</p>
+
+<section id="servicios" class="py-20 md:py-28 border-b border-border-subtle bg-background">
+  <div class="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8">
+    
+    <!-- Section Header -->
+    <div class="flex flex-col items-start space-y-3 mb-12">
+      <span class="inline-flex items-center px-3 py-1 rounded-md text-xs font-mono font-medium tracking-wider uppercase bg-surface border border-border-subtle text-text-secondary">
+        {services.badge}
+      </span>
+      <h2 class="text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-text-primary">
+        {services.title}
+      </h2>
     </div>
-    <div class="p-6 rounded border border-gray-800 bg-gray-900/50">
-      <h3 class="text-lime-400 font-bold mb-2">02. Pipelines & Analytics</h3>
-      <p class="text-sm text-gray-400">Arquitectura de datos estructurados, métricas y dashboards avanzados.</p>
+
+    <!-- 3-Column Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 items-stretch">
+      {services.items.map((service) => (
+        <div class="rounded-xl border border-border-subtle bg-surface/80 hover:border-accent-lime/40 transition-colors p-6 sm:p-7 flex flex-col justify-between group shadow-sm">
+          
+          <!-- Top Area: Number, Title & Description -->
+          <div class="space-y-4">
+            <span class="font-mono text-xl font-bold text-accent-lime tracking-wider block">
+              {service.id}
+            </span>
+            <h3 class="text-lg sm:text-xl font-semibold text-text-primary tracking-tight leading-snug group-hover:text-white transition">
+              {service.title}
+            </h3>
+            <p class="text-sm text-text-secondary leading-relaxed">
+              {service.description}
+            </p>
+          </div>
+
+          <!-- Bottom Area: Entregable Típico Aligned to Bottom -->
+          <div class="mt-8 pt-6 border-t border-border-subtle/80">
+            <span class="font-mono text-[11px] font-medium uppercase tracking-wider text-text-muted block mb-1.5">
+              {service.deliverableLabel}
+            </span>
+            <p class="text-xs sm:text-sm text-text-secondary font-medium leading-normal">
+              {service.deliverable}
+            </p>
+          </div>
+
+        </div>
+      ))}
     </div>
-    <div class="p-6 rounded border border-gray-800 bg-gray-900/50">
-      <h3 class="text-lime-400 font-bold mb-2">03. Evaluación Multicriterio</h3>
-      <p class="text-sm text-gray-400">Modelos AHP/MCDA para priorización y selección de alternativas complejas.</p>
-    </div>
+
   </div>
 </section>

@@ -6,9 +6,13 @@ import Services from '../components/sections/Services.astro';
 import LabTable from '../components/sections/LabTable.astro';
 import ProcessAndProfile from '../components/sections/ProcessAndProfile.astro';
 import Contact from '../components/sections/Contact.astro';
+import esData from '../data/es.json';
 ---
 
-<BaseLayout>
+<BaseLayout
+  title={`${esData.brand} · ${esData.hero.badge}`}
+  description={esData.hero.headline}
+>
   <Hero />
   <FlagshipCase />
   <Services />

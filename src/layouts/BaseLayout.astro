@@ -1,42 +1,155 @@
 ---
 import '../styles/global.css';
+import { siteConfig } from '../config/site.config';
+import esData from '../data/es.json';
 
 interface Props {
   title?: string;
   description?: string;
 }
 
-const { title = "Leandro DataL", description = "Portfolio de Ciencia de Datos" } = Astro.props;
+const { 
+  title = `${esData.brand} · ${siteConfig.description}`, 
+  description = esData.hero.subheadline 
+} = Astro.props;
+
+const currentYear = new Date().getFullYear();
 ---
 
 <!doctype html>
-<html lang="es">
+<html lang="es" class="dark">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <title>{title}</title>
     <meta name="description" content={description} />
+    
+    <!-- Google Fonts: Inter & JetBrains Mono -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
   </head>
-  <body class="min-h-screen bg-[#0B0F17] text-gray-100 flex flex-col">
-    <header class="border-b border-gray-800 p-4">
-      <nav class="max-w-6xl mx-auto flex justify-between items-center">
-        <a href="/" class="text-lime-400 font-bold text-lg tracking-wider">LEANDRO DATAL</a>
-        <div class="space-x-6 text-sm text-gray-300">
-          <a href="/#proyectos" class="hover:text-lime-400">Proyectos</a>
-          <a href="/lab" class="hover:text-lime-400">Lab DataL</a>
-          <a href="/#servicios" class="hover:text-lime-400">Servicios</a>
-          <a href="/#contacto" class="hover:text-lime-400">Contacto</a>
+  <body class="min-h-screen bg-background text-text-primary antialiased flex flex-col font-sans selection:bg-accent-lime/20 selection:text-accent-lime">
+    <!-- Sticky Navbar -->
+    <header class="sticky top-0 z-50 bg-background/85 backdrop-blur-md border-b border-border-subtle transition-all">
+      <div class="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+        <!-- Brand -->
+        <a href="/" class="flex items-center gap-1.5 group text-sm md:text-base font-medium tracking-tight">
+          <span class="text-text-primary group-hover:text-white transition">Leandro</span>
+          <span class="font-mono text-accent-lime font-bold">/</span>
+          <span class="text-text-secondary group-hover:text-text-primary transition font-mono font-medium">DataL</span>
+        </a>
+
+        <!-- Desktop Navigation -->
+        <nav class="hidden md:flex items-center gap-8 text-sm text-text-secondary">
+          <a href="/#proyectos" class="hover:text-text-primary transition-colors">{esData.nav.projects}</a>
+          <a href="/#servicios" class="hover:text-text-primary transition-colors">{esData.nav.services}</a>
+          <a href="/#lab" class="hover:text-text-primary transition-colors">{esData.nav.lab}</a>
+          <a href="/#perfil" class="hover:text-text-primary transition-colors">{esData.nav.profile}</a>
+        </nav>
+
+        <!-- Right Side: Languages & Contact Button -->
+        <div class="hidden md:flex items-center gap-5">
+          <!-- Language Indicator -->
+          <div class="flex items-center gap-1.5 font-mono text-xs px-2 py-1 rounded border border-border-subtle bg-surface/60">
+            <span class="text-accent-lime font-semibold">{esData.nav.languages.es}</span>
+            <span class="text-text-muted">/</span>
+            <span class="text-text-muted cursor-not-allowed select-none opacity-40 hover:opacity-40" title="EN disponible próximamente">
+              {esData.nav.languages.en}
+            </span>
+          </div>
+
+          <!-- Contact CTA -->
+          <a
+            href="/#contacto"
+            class="text-xs font-mono font-medium px-4 py-2 rounded-md border border-border-subtle bg-surface hover:border-accent-lime/60 hover:text-accent-lime hover:bg-surface-subtle transition-all duration-200"
+          >
+            {esData.nav.contact}
+          </a>
         </div>
-      </nav>
+
+        <!-- Mobile Menu Toggle Button -->
+        <div class="flex items-center gap-3 md:hidden">
+          <div class="flex items-center gap-1 font-mono text-xs px-2 py-0.5 rounded border border-border-subtle bg-surface">
+            <span class="text-accent-lime font-semibold">ES</span>
+            <span class="text-text-muted text-[10px]">/ EN</span>
+          </div>
+          <button
+            id="mobile-menu-btn"
+            type="button"
+            class="p-2 rounded-md border border-border-subtle text-text-secondary hover:text-text-primary focus:outline-none"
+            aria-label="Abrir menú"
+          >
+            <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Mobile Dropdown -->
+      <div id="mobile-menu" class="hidden md:hidden border-b border-border-subtle bg-surface/95 backdrop-blur-lg px-4 py-4 space-y-3">
+        <a href="/#proyectos" class="block text-sm text-text-secondary hover:text-accent-lime py-1.5">{esData.nav.projects}</a>
+        <a href="/#servicios" class="block text-sm text-text-secondary hover:text-accent-lime py-1.5">{esData.nav.services}</a>
+        <a href="/#lab" class="block text-sm text-text-secondary hover:text-accent-lime py-1.5">{esData.nav.lab}</a>
+        <a href="/#perfil" class="block text-sm text-text-secondary hover:text-accent-lime py-1.5">{esData.nav.profile}</a>
+        <a
+          href="/#contacto"
+          class="block text-center text-xs font-mono font-medium px-4 py-2.5 rounded border border-border-subtle bg-surface-subtle text-accent-lime"
+        >
+          {esData.nav.contact}
+        </a>
+      </div>
     </header>
 
+    <!-- Main Content Slot -->
     <main class="flex-grow">
       <slot />
     </main>
 
-    <footer class="border-t border-gray-800 p-6 text-center text-sm text-gray-500">
-      <p>&copy; {new Date().getFullYear()} Leandro DataL. Todos los derechos reservados.</p>
+    <!-- Institutional Footer -->
+    <footer class="border-t border-border-subtle bg-surface/50 text-xs text-text-muted py-12 px-4 sm:px-6 lg:px-8">
+      <div class="max-w-[1200px] mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
+        <!-- Tagline / Brand Info -->
+        <div class="flex flex-col sm:flex-row items-center gap-2 sm:gap-4 text-center sm:text-left">
+          <span class="font-mono text-text-secondary font-medium tracking-tight">
+            {esData.footer.tagline}
+          </span>
+        </div>
+
+        <!-- Quick Navigation -->
+        <nav class="flex flex-wrap items-center justify-center gap-6 text-text-secondary">
+          <a href="/#proyectos" class="hover:text-accent-lime transition-colors">{esData.nav.projects}</a>
+          <a href="/#servicios" class="hover:text-accent-lime transition-colors">{esData.nav.services}</a>
+          <a href="/#lab" class="hover:text-accent-lime transition-colors">{esData.nav.lab}</a>
+          <a href="/#perfil" class="hover:text-accent-lime transition-colors">{esData.nav.profile}</a>
+          <a href="/#contacto" class="hover:text-accent-lime transition-colors">{esData.nav.contact}</a>
+        </nav>
+
+        <!-- Copyright -->
+        <div class="font-mono text-text-muted text-center md:text-right">
+          &copy; {currentYear} {esData.brand}. {esData.footer.copyright}
+        </div>
+      </div>
     </footer>
+
+    <script>
+      const menuBtn = document.getElementById('mobile-menu-btn');
+      const mobileMenu = document.getElementById('mobile-menu');
+      if (menuBtn && mobileMenu) {
+        menuBtn.addEventListener('click', () => {
+          mobileMenu.classList.toggle('hidden');
+        });
+        mobileMenu.querySelectorAll('a').forEach((link) => {
+          link.addEventListener('click', () => {
+            mobileMenu.classList.add('hidden');
+          });
+        });
+      }
+    </script>
   </body>
 </html>

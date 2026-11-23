@@ -1,6 +1,164 @@
 ---
+import { getCollection } from 'astro:content';
+import esData from '../../data/es.json';
+
+const { lab } = esData;
+
+// Obtener dinámicamente los experimentos de la colección 'lab' y ordenarlos por ID
+const rawLabEntries = await getCollection('lab');
+const sortedEntries = rawLabEntries.sort((a, b) => a.data.id.localeCompare(b.data.id));
+
+// Mapear con datos de localización en español
+const labItems = sortedEntries.map((entry) => {
+  const localized = lab.items.find((item) => item.id === entry.data.id);
+  return {
+    id: entry.data.id,
+    title: localized?.title ?? entry.data.title,
+    focus: localized?.focus ?? entry.data.summary,
+    status: entry.data.status,
+    demoUrl: entry.data.demoUrl,
+    repoUrl: entry.data.repoUrl,
+  };
+});
+
+// Función para mapear estados visuales en español según requerimiento
+const getStatusConfig = (status: 'completed' | 'in-progress' | 'planned') => {
+  switch (status) {
+    case 'completed':
+      return {
+        text: '• En producción',
+        badgeClass: 'text-accent-lime border-accent-lime/30 bg-accent-lime/10',
+      };
+    case 'in-progress':
+      return {
+        text: 'En desarrollo',
+        badgeClass: 'text-amber-300 border-amber-300/30 bg-amber-400/10',
+      };
+    case 'planned':
+    default:
+      return {
+        text: '○ Próximamente',
+        badgeClass: 'text-text-muted border-border-subtle bg-surface-subtle',
+      };
+  }
+};
 ---
-<section class="py-16 max-w-5xl mx-auto px-4 border-t border-gray-800">
-  <h2 class="text-2xl font-bold text-white mb-4">Lab DataL - Experimentos</h2>
-  <p class="text-gray-400 mb-6">Repositorio de pruebas técnicas, algoritmos y prototipos.</p>
+
+<section id="lab" class="py-20 md:py-28 border-b border-border-subtle bg-surface/30">
+  <div class="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8">
+    
+    <!-- Section Header with CTA Link -->
+    <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
+      <div class="space-y-3">
+        <span class="inline-flex items-center px-3 py-1 rounded-md text-xs font-mono font-medium tracking-wider uppercase bg-surface border border-border-subtle text-text-secondary">
+          {lab.badge}
+        </span>
+        <h2 class="text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-text-primary max-w-2xl">
+          {lab.title}
+        </h2>
+      </div>
+
+      <!-- CTA to Full Lab -->
+      <a
+        href="/lab"
+        class="inline-flex items-center gap-1.5 font-mono text-xs font-semibold text-accent-lime hover:text-accent-lime-hover transition-colors whitespace-nowrap group"
+      >
+        <span>{lab.cta}</span>
+      </a>
+    </div>
+
+    <!-- Desktop View: Table (4 columns) -->
+    <div class="hidden md:block overflow-hidden rounded-xl border border-border-subtle bg-surface shadow-md">
+      <table class="w-full text-left border-collapse">
+        <thead>
+          <tr class="border-b border-border-subtle bg-surface-subtle/50 text-[11px] font-mono uppercase tracking-wider text-text-muted">
+            <th class="py-3.5 px-6 font-semibold w-28">{lab.tableHeaders.id}</th>
+            <th class="py-3.5 px-6 font-semibold w-72">{lab.tableHeaders.experiment}</th>
+            <th class="py-3.5 px-6 font-semibold">{lab.tableHeaders.focus}</th>
+            <th class="py-3.5 px-6 font-semibold text-right w-44">{lab.tableHeaders.status}</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-border-subtle text-sm">
+          {labItems.map((item) => {
+            const statusConfig = getStatusConfig(item.status);
+            return (
+              <tr class="hover:bg-surface-subtle/40 transition-colors group">
+                <!-- ID -->
+                <td class="py-4 px-6 font-mono font-semibold text-accent-lime text-xs">
+                  {item.id}
+                </td>
+                
+                <!-- EXPERIMENTO -->
+                <td class="py-4 px-6 font-medium text-text-primary group-hover:text-white transition">
+                  {item.id === 'DL-001' ? (
+                    <a href="/proyectos/nodo-ia" class="hover:underline flex items-center gap-1.5">
+                      <span>{item.title}</span>
+                      <span class="text-text-muted text-xs">↗</span>
+                    </a>
+                  ) : (
+                    item.title
+                  )}
+                </td>
+                
+                <!-- ENFOQUE -->
+                <td class="py-4 px-6 text-text-secondary text-xs sm:text-sm">
+                  {item.focus}
+                </td>
+                
+                <!-- ESTADO -->
+                <td class="py-4 px-6 text-right">
+                  <span class={`inline-flex items-center px-2.5 py-1 rounded text-xs font-mono font-medium border ${statusConfig.badgeClass}`}>
+                    {statusConfig.text}
+                  </span>
+                </td>
+              </tr>
+            );
+          })}
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Mobile View: Stacked Cards -->
+    <div class="md:hidden space-y-4">
+      {labItems.map((item) => {
+        const statusConfig = getStatusConfig(item.status);
+        return (
+          <div class="rounded-xl border border-border-subtle bg-surface p-5 space-y-3">
+            <div class="flex items-center justify-between">
+              <span class="font-mono text-xs font-bold text-accent-lime">
+                {item.id}
+              </span>
+              <span class={`inline-flex items-center px-2 py-0.5 rounded text-[11px] font-mono font-medium border ${statusConfig.badgeClass}`}>
+                {statusConfig.text}
+              </span>
+            </div>
+
+            <div>
+              <h3 class="text-base font-semibold text-text-primary">
+                {item.id === 'DL-001' ? (
+                  <a href="/proyectos/nodo-ia" class="hover:text-accent-lime transition flex items-center gap-1">
+                    <span>{item.title}</span>
+                    <span class="text-xs">↗</span>
+                  </a>
+                ) : (
+                  item.title
+                )}
+              </h3>
+              <p class="text-xs text-text-secondary mt-1 leading-relaxed">
+                {item.focus}
+              </p>
+            </div>
+          </div>
+        );
+      })}
+    </div>
+
+    <!-- Footer Note -->
+    <div class="mt-6 flex items-center justify-center sm:justify-start">
+      <p class="font-mono text-xs text-text-muted">
+        {lab.note}
+      </p>
+    </div>
+
+  </div>
 </section>

@@ -1,6 +1,143 @@
 ---
+import esData from '../../data/es.json';
+import { siteConfig } from '../../config/site.config';
+
+const { flagshipCase } = esData;
 ---
-<section id="proyectos" class="py-16 max-w-5xl mx-auto px-4 border-t border-gray-800">
-  <h2 class="text-2xl font-bold text-white mb-4">Caso Insignia v2.1.0: Nodo IA</h2>
-  <p class="text-gray-400 mb-6">Localización óptima y análisis estocástico de infraestructura de datos e IA.</p>
+
+<section id="proyectos" class="py-20 md:py-28 border-b border-border-subtle bg-surface/30">
+  <div class="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-10 items-center">
+      
+      <!-- Columna Izquierda: Contenido del Caso -->
+      <div class="lg:col-span-7 flex flex-col items-start space-y-6">
+        
+        <!-- Technical Badge -->
+        <span class="inline-flex items-center px-3 py-1 rounded-md text-xs font-mono font-medium tracking-wider uppercase bg-surface border border-accent-lime/40 text-accent-lime">
+          {flagshipCase.badge}
+        </span>
+
+        <!-- Title -->
+        <h2 class="text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-text-primary leading-tight">
+          {flagshipCase.title}
+        </h2>
+
+        <!-- Description Paragraphs -->
+        <div class="space-y-3 text-text-secondary text-sm sm:text-base leading-relaxed">
+          {flagshipCase.description.map((paragraph) => (
+            <p>{paragraph}</p>
+          ))}
+        </div>
+
+        <!-- Metrics Block -->
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 w-full pt-4">
+          {flagshipCase.metrics.map((metric) => (
+            <div class="p-4 rounded-lg bg-surface border border-border-subtle flex flex-col justify-between">
+              <span class="font-mono text-2xl font-bold text-accent-lime">
+                {metric.value}
+              </span>
+              <span class="text-xs text-text-secondary mt-1 leading-snug">
+                {metric.label}
+              </span>
+            </div>
+          ))}
+        </div>
+
+        <!-- CTAs -->
+        <div class="flex flex-wrap items-center gap-3 pt-4">
+          <!-- Leer caso de estudio -->
+          <a
+            href={siteConfig.caseStudies.nodoIa}
+            class="inline-flex items-center justify-center font-medium text-sm px-5 py-2.5 rounded-lg bg-accent-lime text-background hover:bg-accent-lime-hover font-semibold transition-all shadow-sm"
+          >
+            {flagshipCase.ctas.studyCase}
+          </a>
+
+          <!-- Ver demo en vivo -->
+          <a
+            href={siteConfig.social.demoNodoIa}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center justify-center font-medium text-sm px-4 py-2.5 rounded-lg bg-surface hover:bg-surface-subtle text-text-primary border border-border-subtle hover:border-text-muted transition-all"
+          >
+            {flagshipCase.ctas.liveDemo}
+          </a>
+
+          <!-- GitHub Repo -->
+          <a
+            href={siteConfig.social.github}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center justify-center font-mono text-xs px-4 py-2.5 rounded-lg text-text-secondary hover:text-text-primary border border-border-subtle hover:bg-surface transition-all"
+          >
+            {flagshipCase.ctas.github}
+          </a>
+        </div>
+
+      </div>
+
+      <!-- Columna Derecha: Contenedor Estilizado con Slot para Turno 3 -->
+      <div class="lg:col-span-5 w-full">
+        <div class="relative rounded-xl border border-border-subtle bg-surface/90 shadow-2xl p-5 md:p-6 min-h-[380px] md:min-h-[440px] flex flex-col justify-between overflow-hidden">
+          {/* SLOT: MulticriteriaMatrix (Turno 3) */}
+
+          <!-- Terminal / Matrix Header -->
+          <div class="flex items-center justify-between border-b border-border-subtle pb-3">
+            <div class="flex items-center gap-2">
+              <span class="w-2.5 h-2.5 rounded-full bg-red-500/80"></span>
+              <span class="w-2.5 h-2.5 rounded-full bg-yellow-500/80"></span>
+              <span class="w-2.5 h-2.5 rounded-full bg-accent-lime/80"></span>
+              <span class="ml-2 font-mono text-xs text-text-secondary">{flagshipCase.cardPreview.title}</span>
+            </div>
+            <span class="font-mono text-[10px] text-text-muted uppercase tracking-wider">
+              {flagshipCase.cardPreview.matrixLabel}
+            </span>
+          </div>
+
+          <!-- Multicriteria Weight Mockup Preview -->
+          <div class="py-5 space-y-3 flex-grow">
+            <div class="flex items-center justify-between text-[11px] font-mono text-text-muted pb-1 border-b border-border-subtle/50">
+              <span>{flagshipCase.cardPreview.weightsLabel}</span>
+              <span>PESO %</span>
+            </div>
+
+            {flagshipCase.cardPreview.criteria.map((criterion, idx) => {
+              const weights = [35, 25, 15, 15, 10];
+              const weight = weights[idx] || 15;
+              return (
+                <div class="space-y-1">
+                  <div class="flex justify-between text-xs font-mono text-text-secondary">
+                    <span>{criterion}</span>
+                    <span class={idx === 0 ? "text-accent-lime font-bold" : "text-text-muted"}>{weight}%</span>
+                  </div>
+                  <div class="h-1.5 w-full bg-surface-subtle rounded-full overflow-hidden">
+                    <div
+                      class={`h-full rounded-full ${idx === 0 ? "bg-accent-lime" : "bg-text-secondary/60"}`}
+                      style={`width: ${weight}%`}
+                    ></div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+
+          <!-- Tags & Footer -->
+          <div class="pt-3 border-t border-border-subtle flex flex-col gap-2">
+            <div class="flex flex-wrap gap-1.5">
+              {flagshipCase.cardPreview.tags.map((tag) => (
+                <span class="font-mono text-[10px] px-2 py-0.5 rounded bg-surface-subtle text-text-muted border border-border-subtle">
+                  {tag}
+                </span>
+              ))}
+            </div>
+            <div class="flex justify-end">
+              <span class="italic text-[10px] font-mono text-text-muted">{flagshipCase.cardPreview.caption}</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
 </section>

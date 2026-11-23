@@ -1,15 +1,161 @@
 ---
+import esData from '../../data/es.json';
+import { siteConfig } from '../../config/site.config';
+
+const { contact } = esData;
 ---
-<section id="contacto" class="py-16 max-w-5xl mx-auto px-4 border-t border-gray-800">
-  <h2 class="text-2xl font-bold text-white mb-6">Contacto</h2>
-  <div class="grid md:grid-cols-2 gap-8">
-    <div class="p-6 rounded border border-gray-800 bg-gray-900/50">
-      <h3 class="text-lg font-bold text-lime-400 mb-2">Proyectos & Consultoría</h3>
-      <p class="text-sm text-gray-400 mb-4">Discutamos sobre modelos analíticos, simulaciones o requerimientos de datos.</p>
+
+<section id="contacto" class="py-20 md:py-28 bg-surface/20">
+  <div class="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8">
+    
+    <!-- Section Title -->
+    <div class="max-w-3xl mb-14">
+      <h2 class="text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-text-primary leading-tight">
+        {contact.title}
+      </h2>
     </div>
-    <div class="p-6 rounded border border-gray-800 bg-gray-900/50">
-      <h3 class="text-lg font-bold text-lime-400 mb-2">RR.HH. & Reclutamiento</h3>
-      <p class="text-sm text-gray-400 mb-4">Información sobre perfil profesional, disponibilidad y CV.</p>
+
+    <!-- 2-Column Grid -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch">
+      
+      <!-- Columna 1: PARA PROYECTOS -->
+      <div class="rounded-xl border border-border-subtle bg-surface p-7 sm:p-8 flex flex-col justify-between space-y-6 shadow-sm">
+        <div class="space-y-4">
+          <span class="inline-flex items-center px-3 py-1 rounded-md text-xs font-mono font-medium tracking-wider uppercase bg-surface-subtle border border-border-subtle text-text-secondary">
+            {contact.projects.badge}
+          </span>
+          <p class="text-sm sm:text-base text-text-secondary leading-relaxed">
+            {contact.projects.description}
+          </p>
+          <div class="pt-2">
+            <span class="font-mono text-xs text-text-muted">Canal directo:</span>
+            <span class="font-mono text-xs sm:text-sm text-text-primary ml-2 select-all font-medium">
+              {siteConfig.email}
+            </span>
+          </div>
+        </div>
+
+        <!-- Buttons: Escribime & Copiar email -->
+        <div class="flex flex-wrap items-center gap-3 pt-4 border-t border-border-subtle/80">
+          <a
+            href={`mailto:${siteConfig.email}?subject=Consulta%20sobre%20proyecto`}
+            class="inline-flex items-center justify-center font-medium text-sm px-5 py-2.5 rounded-lg bg-accent-lime text-background hover:bg-accent-lime-hover font-semibold transition-all shadow-sm"
+          >
+            {contact.projects.ctaWrite}
+          </a>
+
+          <button
+            id="copy-email-btn"
+            type="button"
+            data-email={siteConfig.email}
+            class="inline-flex items-center justify-center gap-2 font-mono text-xs px-4 py-2.5 rounded-lg bg-surface-subtle text-text-secondary hover:text-text-primary border border-border-subtle hover:border-text-muted transition-all cursor-pointer"
+          >
+            <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+            </svg>
+            <span id="copy-text">{contact.projects.ctaCopy}</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Columna 2: PARA RR.HH. -->
+      <div class="rounded-xl border border-border-subtle bg-surface p-7 sm:p-8 flex flex-col justify-between space-y-6 shadow-sm">
+        <div class="space-y-4">
+          <span class="inline-flex items-center px-3 py-1 rounded-md text-xs font-mono font-medium tracking-wider uppercase bg-surface-subtle border border-border-subtle text-text-secondary">
+            {contact.recruitment.badge}
+          </span>
+          <p class="text-sm text-text-secondary leading-relaxed">
+            Disponibilidad para roles técnicos de alta exigencia analítica, diseño de pipelines y consultoría cuantitativa.
+          </p>
+
+          <!-- CV Buttons (Respetando site.config.ts) -->
+          <div class="space-y-2.5 pt-2">
+            {siteConfig.cvEsUrl ? (
+              <a
+                href={siteConfig.cvEsUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="flex items-center justify-between w-full px-4 py-3 rounded-lg border border-border-subtle bg-surface-subtle hover:border-accent-lime text-text-primary text-xs font-mono transition group"
+              >
+                <span>{contact.recruitment.cvEs}</span>
+                <span class="text-accent-lime group-hover:translate-y-0.5 transition-transform">↓</span>
+              </a>
+            ) : (
+              <div class="flex items-center justify-between w-full px-4 py-3 rounded-lg border border-border-subtle/70 bg-surface-subtle/40 text-text-muted text-xs font-mono">
+                <span>{contact.recruitment.cvEs}</span>
+                <span class="px-2 py-0.5 rounded text-[10px] bg-surface border border-border-subtle text-text-secondary">
+                  CV a pedido
+                </span>
+              </div>
+            )}
+
+            {siteConfig.cvEnUrl ? (
+              <a
+                href={siteConfig.cvEnUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="flex items-center justify-between w-full px-4 py-3 rounded-lg border border-border-subtle bg-surface-subtle hover:border-accent-lime text-text-primary text-xs font-mono transition group"
+              >
+                <span>{contact.recruitment.cvEn}</span>
+                <span class="text-accent-lime group-hover:translate-y-0.5 transition-transform">↓</span>
+              </a>
+            ) : null}
+          </div>
+        </div>
+
+        <!-- Links to Profiles: GitHub, X, LinkedIn -->
+        <div class="pt-4 border-t border-border-subtle/80 flex flex-wrap items-center gap-4 text-xs font-mono">
+          <a
+            href={siteConfig.social.github}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="text-text-secondary hover:text-accent-lime transition-colors inline-flex items-center gap-1"
+          >
+            <span>{contact.recruitment.links.github}</span>
+          </a>
+
+          <a
+            href={siteConfig.social.twitter}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="text-text-secondary hover:text-accent-lime transition-colors inline-flex items-center gap-1"
+          >
+            <span>{contact.recruitment.links.twitter}</span>
+          </a>
+
+          <span class="text-text-muted select-none opacity-60 inline-flex items-center gap-1" title="Perfil en actualización">
+            <span>{contact.recruitment.links.linkedin}</span>
+          </span>
+        </div>
+
+      </div>
+
     </div>
+
   </div>
 </section>
+
+<script>
+  const copyBtn = document.getElementById('copy-email-btn');
+  const copyText = document.getElementById('copy-text');
+
+  if (copyBtn && copyText) {
+    const originalText = copyText.textContent;
+    copyBtn.addEventListener('click', async () => {
+      const email = copyBtn.getAttribute('data-email');
+      if (email) {
+        try {
+          await navigator.clipboard.writeText(email);
+          copyText.textContent = '✓ Copiado';
+          copyBtn.classList.add('text-accent-lime', 'border-accent-lime/50');
+          setTimeout(() => {
+            copyText.textContent = originalText;
+            copyBtn.classList.remove('text-accent-lime', 'border-accent-lime/50');
+          }, 2000);
+        } catch (err) {
+          console.error('Error al copiar al portapapeles:', err);
+        }
+      }
+    });
+  }
+</script>

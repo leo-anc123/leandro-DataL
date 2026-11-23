@@ -5,12 +5,55 @@
 :root {
   --color-bg: #0B0F17;
   --color-surface: #111827;
+  --color-surface-subtle: #1F2937;
   --color-border: #374151;
-  --color-accent: #A3E635;
+  --color-accent-lime: #A3E635;
+  --color-accent-lime-hover: #BEF264;
+  --color-accent-lime-dim: #4D7C0F;
+  --color-text-primary: #F9FAFB;
+  --color-text-secondary: #9CA3AF;
+  --color-text-muted: #6B7280;
+}
+
+html {
+  scroll-behavior: smooth;
+  background-color: var(--color-bg);
+  color: var(--color-text-primary);
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
 }
 
 body {
   background-color: var(--color-bg);
-  color: #F9FAFB;
-  font-family: 'Inter', system-ui, sans-serif;
+  color: var(--color-text-primary);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* Custom scrollbar for observability dashboard feel */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0B0F17;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #1F2937;
+  border-radius: 4px;
+  border: 1px solid #374151;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #374151;
+}
+
+/* Subtle glow effects */
+.glow-lime-subtle {
+  box-shadow: 0 0 25px -5px rgba(163, 230, 53, 0.15);
+}
+
+.border-subtle {
+  border-color: #374151;
 }
