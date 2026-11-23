@@ -4,7 +4,7 @@ Landing page y laboratorio personal de **Leandro**, Científico de Datos especia
 
 Diseñada con estética de laboratorio de datos e interfaces de observabilidad, priorizando jerarquía visual, conversión y rendimiento extremo.
 
-🔗 **Sitio en producción:** [https://TU-URL-DE-VERCEL.vercel.app](https://TU-URL-DE-VERCEL.vercel.app)
+🔗 **Sitn produccion** [https://leandrodatal.vercel](https://leandrodatal.vercel.app).app
 
 ---
 
