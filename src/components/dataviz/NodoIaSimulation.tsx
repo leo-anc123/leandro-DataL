@@ -265,9 +265,12 @@ export default function NodoIaSimulation() {
                 <button
                   key={sc.key}
                   type="button"
+                  aria-label={`Visualizar escenario ${sc.label} (${sc.range})`}
                   onMouseEnter={() => setHoveredScenario(sc.key)}
                   onMouseLeave={() => setHoveredScenario(null)}
-                  className={`flex flex-col items-center justify-center transition-colors duration-200 py-0.5 rounded ${
+                  onFocus={() => setHoveredScenario(sc.key)}
+                  onBlur={() => setHoveredScenario(null)}
+                  className={`flex flex-col items-center justify-center transition-colors duration-200 py-0.5 rounded focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#A3E635] ${
                     isBase
                       ? 'text-[#A3E635] font-semibold font-mono'
                       : 'text-[#9CA3AF] hover:text-[#F9FAFB]'

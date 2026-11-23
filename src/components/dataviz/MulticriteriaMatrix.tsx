@@ -72,9 +72,14 @@ export default function MulticriteriaMatrix() {
           return (
             <div
               key={item.id}
+              tabIndex={0}
+              role="region"
+              aria-label={`Criterio ${item.name}: ${item.weight}% de ponderación. ${item.description}`}
               onMouseEnter={() => setActiveCriterionId(item.id)}
               onMouseLeave={() => setActiveCriterionId(null)}
-              className={`p-2.5 rounded-lg border transition-all duration-200 cursor-default ${
+              onFocus={() => setActiveCriterionId(item.id)}
+              onBlur={() => setActiveCriterionId(null)}
+              className={`p-2.5 rounded-lg border transition-all duration-200 cursor-default focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#A3E635] ${
                 isHovered
                   ? 'bg-[#1F2937] border-[#A3E635]/50 shadow-sm translate-x-1'
                   : 'bg-[#0B0F17]/60 border-[#374151]/40 hover:border-[#374151]'

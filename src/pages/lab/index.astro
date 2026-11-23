@@ -1,10 +1,208 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+const rawLabEntries = await getCollection('lab');
+const labEntries = rawLabEntries.sort((a, b) => a.data.id.localeCompare(b.data.id));
+
+const stats = {
+  total: labEntries.length,
+  completed: labEntries.filter((e) => e.data.status === 'completed').length,
+  inProgress: labEntries.filter((e) => e.data.status === 'in-progress').length,
+  planned: labEntries.filter((e) => e.data.status === 'planned').length,
+};
+
+const getStatusConfig = (status: 'completed' | 'in-progress' | 'planned') => {
+  switch (status) {
+    case 'completed':
+      return {
+        text: '• En producción',
+        badgeClass: 'text-accent-lime border-accent-lime/30 bg-accent-lime/10',
+      };
+    case 'in-progress':
+      return {
+        text: 'En desarrollo',
+        badgeClass: 'text-amber-300 border-amber-300/30 bg-amber-400/10',
+      };
+    case 'planned':
+    default:
+      return {
+        text: '○ Próximamente',
+        badgeClass: 'text-text-muted border-border-subtle bg-surface-subtle',
+      };
+  }
+};
 ---
 
-<BaseLayout title="Lab DataL | Experimentos">
-  <div class="max-w-5xl mx-auto px-4 py-16">
-    <h1 class="text-3xl font-bold text-white mb-4">Lab DataL</h1>
-    <p class="text-gray-400">Laboratorio de investigación, pruebas y prototipos de datos.</p>
+<BaseLayout 
+  title="Laboratorio de Experimentos | Leandro DataL"
+  description="Laboratorio de investigación cuantitativa, prototipos analíticos y herramientas de simulación de decisiones de datos."
+>
+  <div class="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 py-10 md:py-16">
+    
+    <!-- Top Bar: Back Link & Breadcrumb -->
+    <div class="mb-8 flex items-center justify-between">
+      <a 
+        href="/#lab" 
+        class="inline-flex items-center gap-2 font-mono text-xs font-medium text-text-secondary hover:text-accent-lime transition-colors group px-3 py-1.5 rounded border border-border-subtle bg-surface/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-lime"
+      >
+        <span class="group-hover:-translate-x-0.5 transition-transform">←</span>
+        <span>Volver al inicio</span>
+      </a>
+
+      <div class="flex items-center gap-2 font-mono text-xs text-text-muted">
+        <span>explorar</span>
+        <span>/</span>
+        <span class="text-accent-lime font-mono">lab</span>
+      </div>
+    </div>
+
+    <!-- Header Section -->
+    <header class="border-b border-border-subtle pb-10 mb-12">
+      <div class="flex flex-wrap items-center gap-3 mb-4">
+        <span class="inline-flex items-center px-3 py-1 rounded-md text-xs font-mono font-medium tracking-wider uppercase bg-surface border border-border-subtle text-text-secondary">
+          I+D · SISTEMA EXPERIMENTAL
+        </span>
+        <span class="font-mono text-xs text-text-muted">
+          Repositorio continuo de prototipos
+        </span>
+      </div>
+
+      <h1 class="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-text-primary leading-tight mb-4">
+        Laboratorio de Experimentos
+      </h1>
+
+      <p class="text-base sm:text-lg text-text-secondary leading-relaxed max-w-3xl mb-8">
+        Espacio de investigación cuantitativa, pruebas de concepto y simuladores de decisión. Cada entrada responde a un problema analítico concreto con código auditable y enfoque reproducible.
+      </p>
+
+      <!-- Stat Badges Bar -->
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 p-4 rounded-xl border border-border-subtle bg-surface/60 font-mono text-xs">
+        <div>
+          <span class="text-text-muted block text-[11px] uppercase tracking-wider mb-1">Total Registrados</span>
+          <span class="text-text-primary font-bold text-base">{stats.total} experimentos</span>
+        </div>
+        <div>
+          <span class="text-text-muted block text-[11px] uppercase tracking-wider mb-1">En Producción</span>
+          <span class="text-accent-lime font-bold text-base">{stats.completed} activos</span>
+        </div>
+        <div>
+          <span class="text-text-muted block text-[11px] uppercase tracking-wider mb-1">En Desarrollo</span>
+          <span class="text-amber-300 font-bold text-base">{stats.inProgress} en curso</span>
+        </div>
+        <div>
+          <span class="text-text-muted block text-[11px] uppercase tracking-wider mb-1">Planificados</span>
+          <span class="text-text-muted font-bold text-base">{stats.planned} agendados</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- Experiments List -->
+    <section class="space-y-6">
+      {labEntries.map((entry) => {
+        const { id, title, status, tags, summary, demoUrl, repoUrl } = entry.data;
+        const statusConfig = getStatusConfig(status);
+
+        return (
+          <article class="p-6 sm:p-8 rounded-xl border border-border-subtle bg-surface/70 hover:border-border-subtle/90 transition-all space-y-5">
+            
+            <!-- Card Top: ID, Status & Tags -->
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+              <div class="flex items-center gap-3">
+                <span class="font-mono text-sm font-bold text-accent-lime px-2.5 py-1 rounded bg-accent-lime/10 border border-accent-lime/30">
+                  {id}
+                </span>
+                <span class={`inline-flex items-center px-2.5 py-0.5 rounded text-xs font-mono font-medium border ${statusConfig.badgeClass}`}>
+                  {statusConfig.text}
+                </span>
+              </div>
+
+              <!-- Tags -->
+              <div class="flex flex-wrap gap-1.5 font-mono text-[11px]">
+                {tags.map((tag) => (
+                  <span class="px-2 py-0.5 rounded bg-surface border border-border-subtle text-text-secondary">
+                    {tag}
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            <!-- Title & Summary -->
+            <div>
+              <h2 class="text-xl sm:text-2xl font-bold text-text-primary tracking-tight mb-2">
+                {title}
+              </h2>
+              <p class="text-sm sm:text-base text-text-secondary leading-relaxed max-w-4xl">
+                {summary}
+              </p>
+            </div>
+
+            <!-- Actions Row -->
+            <div class="pt-4 border-t border-border-subtle/80 flex flex-wrap items-center justify-between gap-4 font-mono text-xs">
+              <div class="flex flex-wrap items-center gap-3">
+                {id === 'DL-001' && (
+                  <a
+                    href="/proyectos/nodo-ia"
+                    class="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-accent-lime text-background font-semibold hover:bg-accent-lime-hover transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-lime"
+                  >
+                    <span>Ver caso completo</span>
+                    <span>→</span>
+                  </a>
+                )}
+
+                {demoUrl && (
+                  <a
+                    href={demoUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg bg-surface border border-border-subtle text-text-primary hover:border-text-muted transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-lime"
+                  >
+                    <span>Demo en vivo</span>
+                    <span class="text-text-muted">↗</span>
+                  </a>
+                )}
+
+                {repoUrl && (
+                  <a
+                    href={repoUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg bg-surface border border-border-subtle text-text-secondary hover:text-text-primary transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-lime"
+                  >
+                    <span>Repositorio</span>
+                    <span class="text-text-muted">↗</span>
+                  </a>
+                )}
+              </div>
+
+              <span class="text-text-muted text-[11px]">
+                Auditoría continua · DataL I+D
+              </span>
+            </div>
+
+          </article>
+        );
+      })}
+    </section>
+
+    <!-- Bottom Navigation & Contact Trigger -->
+    <div class="mt-16 pt-8 border-t border-border-subtle flex flex-col sm:flex-row items-center justify-between gap-4">
+      <a 
+        href="/#lab" 
+        class="inline-flex items-center gap-2 font-mono text-xs text-text-secondary hover:text-accent-lime transition-colors group px-4 py-2.5 rounded-lg border border-border-subtle bg-surface hover:bg-surface-subtle focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-lime"
+      >
+        <span class="group-hover:-translate-x-0.5 transition-transform">←</span>
+        <span>Volver al inicio</span>
+      </a>
+
+      <a 
+        href="/#contacto" 
+        class="inline-flex items-center gap-2 font-mono text-xs text-accent-lime hover:text-accent-lime-hover transition-colors group px-4 py-2.5 rounded-lg border border-accent-lime/30 bg-accent-lime/10 hover:bg-accent-lime/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-lime"
+      >
+        <span>¿Querés proponer un experimento o simulación? Escribime</span>
+        <span class="group-hover:translate-x-0.5 transition-transform">→</span>
+      </a>
+    </div>
+
   </div>
 </BaseLayout>

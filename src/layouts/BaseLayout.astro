@@ -6,14 +6,20 @@ import esData from '../data/es.json';
 interface Props {
   title?: string;
   description?: string;
+  ogType?: string;
+  ogImage?: string;
 }
 
 const { 
   title = `${esData.brand} · ${siteConfig.description}`, 
-  description = esData.hero.subheadline 
+  description = esData.hero.subheadline,
+  ogType = 'website',
+  ogImage = '/og-image.png'
 } = Astro.props;
 
 const currentYear = new Date().getFullYear();
+const canonicalURL = new URL(Astro.url.pathname, Astro.site ?? 'https://leandrodatal.com');
+const ogImageURL = new URL(ogImage, Astro.site ?? 'https://leandrodatal.com');
 ---
 
 <!doctype html>
@@ -24,6 +30,23 @@ const currentYear = new Date().getFullYear();
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <title>{title}</title>
     <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalURL} />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content={ogType} />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImageURL} />
+    <meta property="og:locale" content="es_AR" />
+    <meta property="og:site_name" content={esData.brand} />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content={canonicalURL} />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImageURL} />
     
     <!-- Google Fonts: Inter & JetBrains Mono -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -38,24 +61,28 @@ const currentYear = new Date().getFullYear();
     <header class="sticky top-0 z-50 bg-background/85 backdrop-blur-md border-b border-border-subtle transition-all">
       <div class="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
         <!-- Brand -->
-        <a href="/" class="flex items-center gap-1.5 group text-sm md:text-base font-medium tracking-tight">
+        <a 
+          href="/" 
+          class="flex items-center gap-1.5 group text-sm md:text-base font-medium tracking-tight rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-lime"
+          aria-label="Ir al inicio - Leandro / DataL"
+        >
           <span class="text-text-primary group-hover:text-white transition">Leandro</span>
           <span class="font-mono text-accent-lime font-bold">/</span>
           <span class="text-text-secondary group-hover:text-text-primary transition font-mono font-medium">DataL</span>
         </a>
 
         <!-- Desktop Navigation -->
-        <nav class="hidden md:flex items-center gap-8 text-sm text-text-secondary">
-          <a href="/#proyectos" class="hover:text-text-primary transition-colors">{esData.nav.projects}</a>
-          <a href="/#servicios" class="hover:text-text-primary transition-colors">{esData.nav.services}</a>
-          <a href="/#lab" class="hover:text-text-primary transition-colors">{esData.nav.lab}</a>
-          <a href="/#perfil" class="hover:text-text-primary transition-colors">{esData.nav.profile}</a>
+        <nav class="hidden md:flex items-center gap-8 text-sm text-text-secondary" aria-label="Navegación principal">
+          <a href="/#proyectos" class="hover:text-text-primary transition-colors rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-lime">{esData.nav.projects}</a>
+          <a href="/#servicios" class="hover:text-text-primary transition-colors rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-lime">{esData.nav.services}</a>
+          <a href="/#lab" class="hover:text-text-primary transition-colors rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-lime">{esData.nav.lab}</a>
+          <a href="/#perfil" class="hover:text-text-primary transition-colors rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-lime">{esData.nav.profile}</a>
         </nav>
 
         <!-- Right Side: Languages & Contact Button -->
         <div class="hidden md:flex items-center gap-5">
           <!-- Language Indicator -->
-          <div class="flex items-center gap-1.5 font-mono text-xs px-2 py-1 rounded border border-border-subtle bg-surface/60">
+          <div class="flex items-center gap-1.5 font-mono text-xs px-2 py-1 rounded border border-border-subtle bg-surface/60" aria-label="Selector de idioma">
             <span class="text-accent-lime font-semibold">{esData.nav.languages.es}</span>
             <span class="text-text-muted">/</span>
             <span class="text-text-muted cursor-not-allowed select-none opacity-40 hover:opacity-40" title="EN disponible próximamente">
@@ -66,7 +93,7 @@ const currentYear = new Date().getFullYear();
           <!-- Contact CTA -->
           <a
             href="/#contacto"
-            class="text-xs font-mono font-medium px-4 py-2 rounded-md border border-border-subtle bg-surface hover:border-accent-lime/60 hover:text-accent-lime hover:bg-surface-subtle transition-all duration-200"
+            class="text-xs font-mono font-medium px-4 py-2 rounded-md border border-border-subtle bg-surface hover:border-accent-lime/60 hover:text-accent-lime hover:bg-surface-subtle transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-lime"
           >
             {esData.nav.contact}
           </a>
@@ -81,10 +108,12 @@ const currentYear = new Date().getFullYear();
           <button
             id="mobile-menu-btn"
             type="button"
-            class="p-2 rounded-md border border-border-subtle text-text-secondary hover:text-text-primary focus:outline-none"
-            aria-label="Abrir menú"
+            class="p-2 rounded-md border border-border-subtle text-text-secondary hover:text-text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-lime"
+            aria-label="Abrir menú de navegación"
+            aria-expanded="false"
+            aria-controls="mobile-menu"
           >
-            <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
             </svg>
           </button>
@@ -92,14 +121,14 @@ const currentYear = new Date().getFullYear();
       </div>
 
       <!-- Mobile Dropdown -->
-      <div id="mobile-menu" class="hidden md:hidden border-b border-border-subtle bg-surface/95 backdrop-blur-lg px-4 py-4 space-y-3">
-        <a href="/#proyectos" class="block text-sm text-text-secondary hover:text-accent-lime py-1.5">{esData.nav.projects}</a>
-        <a href="/#servicios" class="block text-sm text-text-secondary hover:text-accent-lime py-1.5">{esData.nav.services}</a>
-        <a href="/#lab" class="block text-sm text-text-secondary hover:text-accent-lime py-1.5">{esData.nav.lab}</a>
-        <a href="/#perfil" class="block text-sm text-text-secondary hover:text-accent-lime py-1.5">{esData.nav.profile}</a>
+      <div id="mobile-menu" class="hidden md:hidden border-b border-border-subtle bg-surface/95 backdrop-blur-lg px-4 py-4 space-y-3" aria-label="Navegación móvil">
+        <a href="/#proyectos" class="block text-sm text-text-secondary hover:text-accent-lime py-1.5 rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-lime">{esData.nav.projects}</a>
+        <a href="/#servicios" class="block text-sm text-text-secondary hover:text-accent-lime py-1.5 rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-lime">{esData.nav.services}</a>
+        <a href="/#lab" class="block text-sm text-text-secondary hover:text-accent-lime py-1.5 rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-lime">{esData.nav.lab}</a>
+        <a href="/#perfil" class="block text-sm text-text-secondary hover:text-accent-lime py-1.5 rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-lime">{esData.nav.profile}</a>
         <a
           href="/#contacto"
-          class="block text-center text-xs font-mono font-medium px-4 py-2.5 rounded border border-border-subtle bg-surface-subtle text-accent-lime"
+          class="block text-center text-xs font-mono font-medium px-4 py-2.5 rounded border border-border-subtle bg-surface-subtle text-accent-lime focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-lime"
         >
           {esData.nav.contact}
         </a>
@@ -122,12 +151,12 @@ const currentYear = new Date().getFullYear();
         </div>
 
         <!-- Quick Navigation -->
-        <nav class="flex flex-wrap items-center justify-center gap-6 text-text-secondary">
-          <a href="/#proyectos" class="hover:text-accent-lime transition-colors">{esData.nav.projects}</a>
-          <a href="/#servicios" class="hover:text-accent-lime transition-colors">{esData.nav.services}</a>
-          <a href="/#lab" class="hover:text-accent-lime transition-colors">{esData.nav.lab}</a>
-          <a href="/#perfil" class="hover:text-accent-lime transition-colors">{esData.nav.profile}</a>
-          <a href="/#contacto" class="hover:text-accent-lime transition-colors">{esData.nav.contact}</a>
+        <nav class="flex flex-wrap items-center justify-center gap-6 text-text-secondary" aria-label="Enlaces del pie de página">
+          <a href="/#proyectos" class="hover:text-accent-lime transition-colors rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-lime">{esData.nav.projects}</a>
+          <a href="/#servicios" class="hover:text-accent-lime transition-colors rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-lime">{esData.nav.services}</a>
+          <a href="/#lab" class="hover:text-accent-lime transition-colors rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-lime">{esData.nav.lab}</a>
+          <a href="/#perfil" class="hover:text-accent-lime transition-colors rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-lime">{esData.nav.profile}</a>
+          <a href="/#contacto" class="hover:text-accent-lime transition-colors rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-lime">{esData.nav.contact}</a>
         </nav>
 
         <!-- Copyright -->
@@ -142,11 +171,13 @@ const currentYear = new Date().getFullYear();
       const mobileMenu = document.getElementById('mobile-menu');
       if (menuBtn && mobileMenu) {
         menuBtn.addEventListener('click', () => {
-          mobileMenu.classList.toggle('hidden');
+          const isHidden = mobileMenu.classList.toggle('hidden');
+          menuBtn.setAttribute('aria-expanded', (!isHidden).toString());
         });
         mobileMenu.querySelectorAll('a').forEach((link) => {
           link.addEventListener('click', () => {
             mobileMenu.classList.add('hidden');
+            menuBtn.setAttribute('aria-expanded', 'false');
           });
         });
       }

@@ -39,7 +39,7 @@ const { contact } = esData;
         <div class="flex flex-wrap items-center gap-3 pt-4 border-t border-border-subtle/80">
           <a
             href={`mailto:${siteConfig.email}?subject=Consulta%20sobre%20proyecto`}
-            class="inline-flex items-center justify-center font-medium text-sm px-5 py-2.5 rounded-lg bg-accent-lime text-background hover:bg-accent-lime-hover font-semibold transition-all shadow-sm"
+            class="inline-flex items-center justify-center font-medium text-sm px-5 py-2.5 rounded-lg bg-accent-lime text-background hover:bg-accent-lime-hover font-semibold transition-all shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-lime"
           >
             {contact.projects.ctaWrite}
           </a>
@@ -48,9 +48,10 @@ const { contact } = esData;
             id="copy-email-btn"
             type="button"
             data-email={siteConfig.email}
-            class="inline-flex items-center justify-center gap-2 font-mono text-xs px-4 py-2.5 rounded-lg bg-surface-subtle text-text-secondary hover:text-text-primary border border-border-subtle hover:border-text-muted transition-all cursor-pointer"
+            aria-label="Copiar dirección de email al portapapeles"
+            class="inline-flex items-center justify-center gap-2 font-mono text-xs px-4 py-2.5 rounded-lg bg-surface-subtle text-text-secondary hover:text-text-primary border border-border-subtle hover:border-text-muted transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-lime"
           >
-            <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
             </svg>
             <span id="copy-text">{contact.projects.ctaCopy}</span>
@@ -75,10 +76,10 @@ const { contact } = esData;
                 href={siteConfig.cvEsUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                class="flex items-center justify-between w-full px-4 py-3 rounded-lg border border-border-subtle bg-surface-subtle hover:border-accent-lime text-text-primary text-xs font-mono transition group"
+                class="flex items-center justify-between w-full px-4 py-3 rounded-lg border border-border-subtle bg-surface-subtle hover:border-accent-lime text-text-primary text-xs font-mono transition group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-lime"
               >
                 <span>{contact.recruitment.cvEs}</span>
-                <span class="text-accent-lime group-hover:translate-y-0.5 transition-transform">↓</span>
+                <span class="text-accent-lime group-hover:translate-y-0.5 transition-transform" aria-hidden="true">↓</span>
               </a>
             ) : (
               <div class="flex items-center justify-between w-full px-4 py-3 rounded-lg border border-border-subtle/70 bg-surface-subtle/40 text-text-muted text-xs font-mono">
@@ -94,10 +95,10 @@ const { contact } = esData;
                 href={siteConfig.cvEnUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                class="flex items-center justify-between w-full px-4 py-3 rounded-lg border border-border-subtle bg-surface-subtle hover:border-accent-lime text-text-primary text-xs font-mono transition group"
+                class="flex items-center justify-between w-full px-4 py-3 rounded-lg border border-border-subtle bg-surface-subtle hover:border-accent-lime text-text-primary text-xs font-mono transition group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-lime"
               >
                 <span>{contact.recruitment.cvEn}</span>
-                <span class="text-accent-lime group-hover:translate-y-0.5 transition-transform">↓</span>
+                <span class="text-accent-lime group-hover:translate-y-0.5 transition-transform" aria-hidden="true">↓</span>
               </a>
             ) : null}
           </div>
@@ -109,7 +110,8 @@ const { contact } = esData;
             href={siteConfig.social.github}
             target="_blank"
             rel="noopener noreferrer"
-            class="text-text-secondary hover:text-accent-lime transition-colors inline-flex items-center gap-1"
+            class="text-text-secondary hover:text-accent-lime transition-colors inline-flex items-center gap-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-lime rounded p-0.5"
+            aria-label="Perfil de GitHub (se abre en nueva pestaña)"
           >
             <span>{contact.recruitment.links.github}</span>
           </a>
@@ -118,7 +120,8 @@ const { contact } = esData;
             href={siteConfig.social.twitter}
             target="_blank"
             rel="noopener noreferrer"
-            class="text-text-secondary hover:text-accent-lime transition-colors inline-flex items-center gap-1"
+            class="text-text-secondary hover:text-accent-lime transition-colors inline-flex items-center gap-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-lime rounded p-0.5"
+            aria-label="Perfil de X / Twitter (se abre en nueva pestaña)"
           >
             <span>{contact.recruitment.links.twitter}</span>
           </a>

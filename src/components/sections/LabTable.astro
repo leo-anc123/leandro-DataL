@@ -61,9 +61,10 @@ const getStatusConfig = (status: 'completed' | 'in-progress' | 'planned') => {
       <!-- CTA to Full Lab -->
       <a
         href="/lab"
-        class="inline-flex items-center gap-1.5 font-mono text-xs font-semibold text-accent-lime hover:text-accent-lime-hover transition-colors whitespace-nowrap group"
+        class="inline-flex items-center gap-1.5 font-mono text-xs font-semibold text-accent-lime hover:text-accent-lime-hover transition-colors whitespace-nowrap group rounded p-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-lime"
       >
         <span>{lab.cta}</span>
+        <span class="group-hover:translate-x-0.5 transition-transform">→</span>
       </a>
     </div>
 
@@ -91,7 +92,10 @@ const getStatusConfig = (status: 'completed' | 'in-progress' | 'planned') => {
                 <!-- EXPERIMENTO -->
                 <td class="py-4 px-6 font-medium text-text-primary group-hover:text-white transition">
                   {item.id === 'DL-001' ? (
-                    <a href="/proyectos/nodo-ia" class="hover:underline flex items-center gap-1.5">
+                    <a 
+                      href="/proyectos/nodo-ia" 
+                      class="hover:underline flex items-center gap-1.5 rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-lime"
+                    >
                       <span>{item.title}</span>
                       <span class="text-text-muted text-xs">↗</span>
                     </a>
@@ -136,7 +140,10 @@ const getStatusConfig = (status: 'completed' | 'in-progress' | 'planned') => {
             <div>
               <h3 class="text-base font-semibold text-text-primary">
                 {item.id === 'DL-001' ? (
-                  <a href="/proyectos/nodo-ia" class="hover:text-accent-lime transition flex items-center gap-1">
+                  <a 
+                    href="/proyectos/nodo-ia" 
+                    class="hover:text-accent-lime transition flex items-center gap-1 rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-lime"
+                  >
                     <span>{item.title}</span>
                     <span class="text-xs">↗</span>
                   </a>
