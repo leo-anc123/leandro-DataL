@@ -5,6 +5,6 @@ import mdx from '@astrojs/mdx';
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://leandrodatal.com',
+  site: 'https://leandrodatal.vercel.app/',
   integrations: [react(), tailwind(), mdx()]
 });
